@@ -3,18 +3,19 @@ import os
 from netmiko import ConnectHandler
 from getpass import getpass
 
-NET_PASS = os.getenv("NET_PASS") if os.getenv("NET_PASS") else getpass()
+# os.environ["PASSWORD"] = "Here is the password"
+PASSWORD = os.getenv("PASSWORD") if os.getenv("PASSWORD") else getpass()
 
 device1 = {
     "device_type": "cisco_ios",
     "host": "cisco4.lasthop.io",
     "username": "pyclass",
-    "password": NET_PASS,
+    "password": PASSWORD,
 }
 
 net_connect = ConnectHandler(**device1)
 
-output = net_connect.send_command("ping", expect_string=r"Protocol", strip_command=False)
+output = net_connect.send_command("ping", expect_string=r"Protocol", strip_prompt=False, strip_command=False)
 output += net_connect.send_command("\n", expect_string=r"Target IP", strip_prompt=False, strip_command=False)
 output += net_connect.send_command("8.8.8.8", expect_string=r"Repeat count", strip_prompt=False, strip_command=False)
 output += net_connect.send_command("\n", expect_string=r"Datagram size", strip_prompt=False, strip_command=False)
@@ -27,3 +28,4 @@ net_connect.disconnect()
 print()
 print(output)
 print()
+
