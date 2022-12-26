@@ -27,9 +27,10 @@ for device in devices:
     net_connect = ConnectHandler(**device)
     output = net_connect.send_config_from_file("vlans.txt")
     print("#"*40)
-    net_connect.save_config()
+    save_out = net_connect.save_config()
     net_connect.disconnect()
     print(f"Output for device: {device['host']}")
     print(output)
-
+    print("-"*40)
+#    print(save_out)
 

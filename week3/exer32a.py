@@ -25,5 +25,5 @@ nxos1 = {"device_name": "nxos1",
 
 lab_list = [cisco3, arista1, srx2, nxos1]
 
-pprint(lab_list)
+# pprint(lab_list)
 
